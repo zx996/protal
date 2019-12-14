@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block body %}
+<div class="profile_style">
+ <br><br>
+ <h1> {{ appointment_list|length }}</h1><br>
+     </div>
+     <div class="body_style">
+ {% if appointment_list|length != 0 %}
+ <table id="customers">
+   <col width="40">
+   <col width="80">
+   <col width="80">
+   <col width="80">
+   <col width="80">
+   <col width="80">
+
+ {% for i in appointment_list %}
+ <tr>
+     {% if loop.first %}
+          <th>date<br></th>
+          <th>time<br></th>
+          <th>place<br></th>
+
+          {% if current_user.__class__.__name__ == "Patient"  %}
+          <th>doctor<br></th>
+          {% elif  current_user.__class__.__name__ == "Provider"  or  i.__class__.__name__ == "Specialist" %}
+          <th>patient<br></th>
+          {% endif %}
+
+          <th>profile<br></th>
+     {% endif %}
+ </tr>
+
+ {% endfor %}
+ {% for i in appointment_list %}
+     <tr>
+          <td>{{ i.date }}<br></td>
+          <td>{{ i.time }}<br></td>
+          <td>{{ i.centre}}<br></td>
+          {% if current_user.__class__.__name__ == "Patient"  %}
+          <td>{{ i.provider.username }}<br></td>
+          {% elif  current_user.__class__.__name__ == "Provider"  or  i.__class__.__name__ == "Specialist" %}
+          <td>{{ i.patient.username }}<br></td>
+          {% endif %}
+
+          {% if current_user.__class__.__name__ == "Provider"  or  i.__class__.__name__ == "Specialist"  %}
+          <td><a   href ="{{url_for('profile', name = i.patient.username, type = i.patient.__class__.__name__)}}"><button>Details</button></a></td>
+          {% elif  current_user.__class__.__name__ == "Patient" %}
+          <td><a   href ="{{url_for('profile', name = i.provider.username, type = i.provider.__class__.__name__ )}}"><button>Details</button></a></td>
+          {% endif %}
+      </tr>
+
+ {% endfor %}
+ </table>
+
+
+ {% endif %}
+
+
+ </div>
+{% endblock %}

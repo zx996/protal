@@ -1,0 +1,225 @@
+{% extends 'base.html' %}
+{% block body %}
+<div class="body_style">
+<table id="customers">
+<col width="40">
+<col width="80">
+<col width="80">
+<col width="80">
+<col width="80">
+<col width="80">
+
+
+{% if tempone.__class__.__name__ == "Centre" %}
+    <tr>
+        <th> name <br></th>
+        <td>{{ tempone.name }}<br></td>
+    </tr>
+    <tr>
+        <th> id  <br></th>
+        <td>{{ tempone.id }}<br></td>
+    </tr>
+    <tr>
+        <th> abn  <br></th>
+        <td>{{ tempone.abn }}<br></td>
+    </tr>
+    <tr>
+        <th> phone <br></th>
+        <td>{{ tempone.phone  }}<br></td>
+    </tr>
+    <tr>
+        <th> suburb <br></th>
+        <td>{{ tempone.suburb }}<br></td>
+    </tr>
+    <tr>
+        <th> rate <br></th>
+        <td>{{ tempone.rate }}<br></td>
+    </tr>
+
+{% elif tempone.__class__.__name__ == "Provider" or tempone.__class__.__name__ == "Specialist"  %}
+
+    <tr>
+        <th> name <br></th>
+        <td>{{ tempone.fullname }}<br></td>
+    </tr>
+    <tr>
+        <th> phone number <br></th>
+        <td>{{ tempone.phone_number }}<br></td>
+    </tr>
+    <tr>
+        <th> username <br></th>
+        <td>{{ tempone.username }}<br></td>
+    </tr>
+    <tr>
+        <th> id <br></th>
+        <td>{{ tempone.id }}<br></td>
+    </tr>
+    <tr>
+        <th> rate <br></th>
+        <td>{{ tempone.rate }}<br></td>
+    </tr>
+
+{% elif tempone.__class__.__name__ == "Patient" %}
+    {% if permission == True %}
+        <tr>
+            <th>name<br></th>
+            <td>{{ tempone.fullname }}</td>
+        </tr>
+        <tr>
+            <th>phone number<br></th>
+            <td>{{ tempone.phone_number }}</td>
+        </tr>
+        <tr>
+            <th> username <br></th>
+            <td>{{ tempone.username }}<br></td>
+        </tr>
+        <tr>
+            <th> id <br></th>
+            <td>{{ tempone.id }}<br></td>
+        </tr>
+
+
+    {% else %}
+          <h1> Sorry, you don't have permission to this user's profile <br></h1>
+    {% endif %}
+{% endif %}
+
+
+</table>
+
+<br>
+<br>
+
+
+
+
+{% if ownprofile == current_user.__class__.__name__ %}
+
+    <form action="{{ url_for('edit_profile', type = tempone.__class__.__name__ ) }}" method="get">
+            <button>Edit personal information</button>
+     </form>
+
+{% else %}
+
+
+<div class="row">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-5">
+    {% if tempone.__class__.__name__ != "Patient" %}
+    <h2>Leave A Rating:</h2>
+
+         <form action="{{ url_for('profile', name =(tempone.name or  tempone.username), type = tempone.__class__.__name__ ) }}" method="get">
+            <div class="rate">
+                <input type="radio" id="star5" name="rate" value="5" />
+                <label for="star5" title="text">5 stars</label>
+                <input type="radio" id="star4" name="rate" value="4" />
+                <label for="star4" title="text">4 stars</label>
+                <input type="radio" id="star3" name="rate" value="3" />
+                <label for="star3" title="text">3 stars</label>
+                <input type="radio" id="star2" name="rate" value="2" />
+                <label for="star2" title="text">2 stars</label>
+                <input type="radio" id="star1" name="rate" value="1" />
+                <label for="star1" title="text">1 star</label>
+                <button>submit</button>
+            </div>
+         </form>
+
+    {% endif %}
+        </div>
+    <br><br><br><br>
+    </div>
+
+
+
+    <br><br><br>
+    {% if tempone.__class__.__name__ != "Patient" %}
+    <div class="row">
+     {% if current_user.__class__.__name__ == "Patient" %}
+    <h2>Make Appointment:</h2>
+    {% endif %}
+    <table id="customers">
+    <col width="40">
+    <col width="80">
+    <col width="80">
+    <col width="80">
+    <col width="80">
+    <col width="80">
+    </div>
+    {% endif %}
+
+
+    {% if tempone.__class__.__name__ == "Centre" %}
+        {% for i in provider_dict %}
+                        <tr>
+
+                        <td>{{ i.service }}<br></td>
+                        <td>{{ i.username }}<br></td>
+                        <td><a   href ="{{url_for('profile', name = i.username, type = i.__class__.__name__)}}"><button>Details</button></a></td>
+                        <td><a   href ="{{url_for('booking', providername = i.username, centre = tempone.name)}}"><button>Booking</button></a></td>
+
+                        </tr>
+        {% endfor %}
+    {% elif tempone.__class__.__name__ == "Provider"  %}
+
+
+            <!--
+            <tr>
+                <td>{{ tempone.service }}<br></td>
+                <td><a   href ="{{url_for('booking', providername = (tempone.name or tempone.username), centre = "individual")}}"><button>booking</button></a></td>
+            </tr>
+            -->
+            <th>name<br></th>
+            <th>id<br></th>
+            <th>type<br></th>
+            <th>abn<br></th>
+            <th>phone<br></th>
+            <th>suburb<br></th>
+            <th>rate<br></th>
+            <th>booking<br></th>
+        {% for i in centre_list %}
+        <tr>
+            <td>{{ i.name }}<br></td>
+          <td>{{ i.id }}<br></td>
+          <td>{{ i.type }}<br></td>
+          <td>{{ i.abn }}<br></td>
+          <td>{{ i.phone }}<br></td>
+          <td>{{ i.suburb }}<br></td>
+          <td>{{ i.rate }}<br></td>
+          <td><a   href ="{{url_for('booking', providername = (tempone.name or tempone.username) , centre = i.name )}}"><button>booking</button></a></td>
+
+        </tr>
+        {% endfor %}
+
+
+     {% elif tempone.__class__.__name__ == "Specialist" %}
+          {% if current_user.username in tempone.allow_appointment %}
+               <tr>
+                   <td>{{ tempone.service }}<br></td>
+                   <td><a   href ="{{url_for('booking', providername = (tempone.name or tempone.username), centre = "individual")}}"><button>booking</button></a></td>
+               </tr>
+          {% endif %}
+    {% elif tempone.__class__.__name__ == "Patient" %}
+        {% if permission == True %}
+            {% for appointment in tempone.appointments  %}
+                {% set first_display = True %}
+                {% if current_user == appointment.provider.usernmae and first_display == True %}
+
+                        {% set first_display = False %}
+                        {% for providername , description  in tempone.descriptions.items() %}
+                            {% if providername == current_user.username %}
+                                <td><a   href ="{{url_for('edit_history', patientname = tempone.username)}}"><button>booking</button></a></td>
+                            {% endif %}
+                                <td>{{ description }}<br></td>
+                        {% endfor %}
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    {% endif %}
+
+{% endif %}
+
+</table>
+
+
+</div>
+{% endblock %}

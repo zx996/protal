@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="icon" href="https://www.favicon.cc/logo3d/251706.png" type="image/png" sizes="16x16">
+
+    <meta charset="utf-8">
+    <title>Your health provider</title>
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+    body, html{
+  height: 100%;
+  background: #222222;
+	font-family: 'Lato', sans-serif;
+}
+.header{
+class:centre; display:block; margin-left:auto; margin-right:auto;width:100%;
+}
+    .search_style{
+  display: block;
+  position: relative;
+  margin: 40px auto;
+  height: auto;
+  width: 500px;
+  padding: 20px;
+}
+
+    ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        border: 1px solid #e7e7e7;
+        background-color: #f3f3f3;
+    }
+
+    li {
+        float: left;
+    }
+
+    li a {
+        display: block;
+        color: #666;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+    }
+
+    li a:hover:not(.active) {
+        background-color: #ddd;
+    }
+
+    li a.active {
+        color: white;
+        background-color: #4CAF50;
+    }
+
+    h2 {
+	color: #AAAAAA;
+    }
+
+    h1 {
+	color: #d2d2d2;
+    }
+    h3 {
+        color: #d2d2d2;
+    }
+
+    input[type=text], select, input[type=number], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+        background-color : #d1d1d1;
+        font-size:15px;
+        color: #666666;
+    }
+
+    button {
+        width: 100%;
+        background-color: #4CAF50;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: #45a049;
+    }
+
+        .shop_style{
+  display: block;
+  position: relative;
+  margin: 40px auto;
+  height: auto;
+  width: 500px;
+  padding: 20px;
+}
+                .body_style{
+  display: block;
+  position: relative;
+
+  margin: 40px auto;
+   margin-top: 0;
+  height: auto;
+  width: 900px;
+}
+                                .manage_style{
+  display: block;
+  position: relative;
+
+  margin: 40px auto;
+   margin-top: 0;
+  height: auto;
+  width: 900px;
+}
+
+
+        #customers {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+
+}
+titleicon{
+display:inline-block;
+margin-bottom:10px;
+}
+
+#customers td, #customers th {
+    border: 1px solid #ddd;
+    padding: 8px;
+
+}
+
+#customers tr:nth-child(odd){background-color: #f2f2f2;}
+#customers tr:nth-child(even){background-color: #f2f2f2;}
+
+#customers tr:hover {background-color: #ddd;}
+
+#customers th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4CAF50;
+    color: white;
+}
+
+
+
+*{
+    margin: 0;
+    padding: 0;
+}
+.rate {
+    float: left;
+    height: 46px;
+    padding: 0 10px;
+}
+.rate:not(:checked) > input {
+    position:absolute;
+    top:-9999px;
+}
+.rate:not(:checked) > label {
+    float:right;
+    width:1em;
+    overflow:hidden;
+    white-space:nowrap;
+    cursor:pointer;
+    font-size:30px;
+    color:#ccc;
+}
+.rate:not(:checked) > label:before {
+    content: '★ ';
+}
+.rate > input:checked ~ label {
+    color: #ffc700;
+}
+.rate:not(:checked) > label:hover,
+.rate:not(:checked) > label:hover ~ label {
+    color: #deb217;
+}
+.rate > input:checked + label:hover,
+.rate > input:checked + label:hover ~ label,
+.rate > input:checked ~ label:hover,
+.rate > input:checked ~ label:hover ~ label,
+.rate > label:hover ~ input:checked ~ label {
+    color: #c59b08;
+}
+textarea {
+    border: none;
+    width: 100%;
+    -webkit-box-sizing: border-box; /* <=iOS4, <= Android  2.3 */
+       -moz-box-sizing: border-box; /* FF1+ */
+            box-sizing: border-box; /* Chrome, IE8, Opera, Safari 5.1*/
+}
+.alert-red {
+    padding: 20px;
+    background-color: #f44336;
+    color: white;
+}
+
+.closebtn {
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.closebtn:hover {
+    color: black;
+}
+
+.alert-green {
+    padding: 20px;
+    background-color: #00ff00;
+    color: white;
+}
+
+.closebtn {
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.closebtn:hover {
+    color: black;
+}
+
+
+</style>
+</head>
+
+<body>
+<br>
+
+  <img class = "header" src="https://66.media.tumblr.com/0fd7f3f8979a6e4215c97a1ed0f4dcb4/tumblr_pggilmRGEV1xg0c2uo1_1280.png" alt="idk" />
+
+<ul>
+<li><a href="{{ url_for('home') }}">Home</a></li>
+<li><a href="{{ url_for('appointment') }}">Appointments </a></li>
+<li><a href="{{ url_for('history') }}">History </a></li>
+{% if current_user.admin != True %}
+
+<li><a href="{{ url_for('search') }}">Search</a></li>
+{% endif %}
+
+{% if current_user.is_anonymous %}
+<li><a href="{{ url_for('login') }}">Login</a></li>
+{% else %}
+<li><a href="{{ url_for('profile', name = current_user.username, type = current_user.__class__.__name__) }}">Profile</a></li>
+<li><a href="{{ url_for('logout') }}">Logout</a></li>
+{% endif %}
+<br>
+</ul>
+{% block body %}{% endblock %}
+</body>
+</html>

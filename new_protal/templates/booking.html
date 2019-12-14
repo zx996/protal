@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% block body %}
+<div class="profile_style">
+<br><br><br>
+
+<table id="customers">
+  <col width="60">
+  <col width="80">
+  <col width="80">
+  <col width="80">
+  <col width="80">
+  <col width="80">
+</div>
+
+
+<form method="POST">
+  
+<div class="row">
+      <div class="col-sm-2"></div>
+      <!-- select date -->
+      <div class="col-sm-4">
+
+        <h1> Booking Information: </h1>
+
+        <select class="form-control" name="centre">
+          
+            <option value={{provider.username}}>centre: {{centre}}</option>
+        </select>
+
+        <select class="form-control" name="provider">
+          
+            <option value={{provider.username}}>provider: {{provider.username}}</option>
+        </select>
+
+        <div class="form-control">
+          <label >Date:</label>
+          <input type="date" name="date" value= {{todaydate}}>
+        </div>
+        <!-- select time -->
+        <select class="form-control" name="time">
+          {% for hr in range (start,finish) %}
+            <option value="{{ '%02d' %hr }}:00">time: {{hr}}:00</option>
+            <option value="{{ '%02d' %hr }}:30">time: {{hr}}:30</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="form-group">
+        <br><br>
+      <textarea class="form-control" name="description" cols="47" rows="8" placeholder="Leave a booking description"></textarea>
+      </div>
+
+</div>
+
+<div class="row">
+  <div class="col-sm-2"></div>
+  <div class="col-sm-7">
+  <a href ="{{('booking')}}"><button>Make Booking</button></a>
+  </div>
+</div>
+</form>
+
+
+<div class="row">
+  <div class="col-sm-2"></div>
+  
+  <div class="col-sm-7">
+    {% if error == 'invalid' %}
+        <div class="alert-red">
+          <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+          <strong>Error!</strong> <h1 class="text-white">Invalid selected date<br></h1>
+        </div>
+    {% elif error == 'unavailable' %}  
+        <div class="alert-red">
+          <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+          <strong>Error!</strong> <h1 class="text-white">Date is unavailable<br></h1>
+        </div>
+    {% endif %}
+
+    {% if make == True %}
+        <div class="alert-green">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+            <strong>Done!</strong> <h1 class="text-white">Booking success!<br></h1>
+          </div>
+    {% endif %}
+  </div>
+</div>
+
+{% endblock %}

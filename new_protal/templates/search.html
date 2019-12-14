@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% block body %}
+    <div class="search_style">
+<form action="{{ url_for('search') }}" method="get">
+
+
+    <h1>Search:</h1> <h2><input type="text" name="s" placeholder="What type of service would you like?"><br>
+         <select id = 'select', name = 'select'>
+                <option value="centre"> centre</option>
+                <option value="provider">provider</option>
+                <option value="suburb">suburb</option>
+                <option value="service">service</option>
+         </select>
+            <button>Search</button><br>
+</h2>
+
+</form>
+<br><br>
+<h1>Results: {{ results|length }} results found</h1><br>
+    </div>
+    <div class="body_style">
+{% if results|length != 0 %}
+<table id="customers">
+  <col width="40">
+  <col width="80">
+  <col width="80">
+  <col width="80">
+  <col width="80">
+  <col width="80">
+
+<tr>
+
+{% for x in results %}
+     {% if loop.first %}
+          {% if x.__class__.__name__ == "Centre" %}
+               <th>name<br></th>
+               <th>id<br></th>
+               <th>type<br></th>
+               <th>abn<br></th>
+               <th>phone<br></th>
+               <th>suburb<br></th>
+               <th>rate<br></th>
+          {% elif x.__class__.__name__ == "Provider" or  i.__class__.__name__ == "Specialist"  %}
+               <th>username<br></th>
+               <th>id<br></th>
+               <th>rate<br></th>
+          {% endif %}
+     {% endif %}
+{% endfor %}
+<th>detail<br></th>
+
+</tr>
+
+
+{% for i in results %}
+     <tr>
+     {% if i.__class__.__name__ == "Provider" or  i.__class__.__name__ == "Specialist"  %}
+          <td>{{ i.username }}<br></td>
+          <td>{{ i.id }}<br></td>
+          <td>{{ i.rate }}<br></td>
+          <td><a   href ="{{url_for('profile', name = i.username, type = i.__class__.__name__ )}}"><button>Details</button></a></td>
+     {% elif i.__class__.__name__ == "Centre" %}
+          <td>{{ i.name }}<br></td>
+          <td>{{ i.id }}<br></td>
+          <td>{{ i.type }}<br></td>
+          <td>{{ i.abn }}<br></td>
+          <td>{{ i.phone }}<br></td>
+          <td>{{ i.suburb }}<br></td>
+          <td>{{ i.rate }}<br></td>
+          <td><a   href ="{{url_for('profile', name = i.name, type = "Centre")}}"><button>Details</button></a></td>
+     {% endif %}
+        </tr>
+{% endfor %}
+
+</table>
+{% endif %}
+</div>
+{% endblock %}

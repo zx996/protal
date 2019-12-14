@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+{% block body %}
+
+
+<br><br>
+<div class="row">
+<div class="col-sm-3"></div>
+
+    <div class="col-sm-6">
+        <h2>Patient's information:</h2>
+        <table id="customers">
+        <col width="40">
+        <col width="80">
+        <col width="80">
+        <col width="80">
+        <col width="80">
+        <col width="80">
+
+                <tr>
+                    <th>name<br></th>
+                    <td>{{ patient.fullname }}</td>
+                </tr>
+                <tr>
+                    <th>phone number<br></th>
+                    <td>{{ patient.phone_number }}</td>
+                </tr>
+                <tr>
+                    <th> username <br></th>
+                    <td>{{ patient.username }}<br></td>
+                </tr>
+                <tr>
+                    <th> id <br></th>
+                    <td>{{ patient.id }}<br></td>
+                </tr>
+        </table>
+    </div>
+</div>
+
+<br><br>
+
+<form method="POST">
+<div class="row">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6">
+        <h2>Consultation:</h2>
+        <table id="customers">
+
+
+            <tr>
+                <th>record note<br></th>
+                <td><textarea name='recordnote' placeholder="Enter record note"></textarea></td>
+            </tr>
+            
+            <tr>
+                <th>medicine<br></th>
+                <td><textarea name='medicine' placeholder="Enter medicine"></textarea></td>
+            </tr>
+
+        </table>
+        <input hidden name="action" value="open">
+        <tr><button>Update note</button></tr>
+    </div>
+
+</div>
+</form>
+
+<div class="row">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6">
+        <a   href ="{{ url_for('appointment') }}"><button>back</button></a>
+    </div>
+</div>
+
+<br><br>
+
+<div class="row">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6">
+        <h2>Patient's record notes:</h2>
+        <table id="customers">
+            <tr>
+                <th>Provider</th>
+                <th>record notes</th>
+                <th>medicine</th>
+                <th>time</th>
+            </tr>
+            {% for provider, value in description.items(): %}
+                <tr>
+                    <td>{{provider}}</td>
+                    <td>{{description[provider]}}</td>
+                    <td>{{med[provider]}}</td>
+                    <td>{{time[provider]}}</td>
+                </tr>
+
+            {% endfor %}
+        </table>
+
+        <br><br><br>
+
+
+        <form method="get">
+                <input hidden name="action" value="close">
+                <td><button>Finish consultation</button></a></td>
+
+
+        </form>
+    </div>
+</div>
+
+
+
+{% endblock %}
+

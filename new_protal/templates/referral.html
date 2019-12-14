@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% block body %}
+    <div class="search_style">
+<form action="{{ url_for('referral', name = name) }}" method="get">
+
+
+    <h2>Search specialist's name or expertise:</h2> <h2><input type="text" name="s" placeholder="What type of service would you like?">
+            <button>Search</button><br>
+</h2>
+
+</form>
+<br><br>
+<h1>Results: {{ results|length }} results found</h1><br>
+    </div>
+    <div class="body_style">
+{% if results|length != 0 %}
+<table id="customers">
+  <col width="40">
+  <col width="80">
+  <col width="80">
+  <col width="80">
+  <col width="80">
+  <col width="80">
+
+<tr>
+
+{% for x in results %}
+     {% if loop.first %}
+          {% if x.__class__.__name__ == "Centre" %}
+               <th>name<br></th>
+               <th>id<br></th>
+               <th>type<br></th>
+               <th>abn<br></th>
+               <th>phone<br></th>
+               <th>suburb<br></th>
+               <th>rate<br></th>
+          {% elif x.__class__.__name__ == "Provider" or i.__class__.__name__ == "Specialist"  %}
+               <th>username<br></th>
+               <th>id<br></th>
+               <th>rate<br></th>
+               <th>phone<br></th>
+          {% endif %}
+     {% endif %}
+{% endfor %}
+<th>detail<br></th>
+
+</tr>
+
+
+{% for i in results %}
+     <tr>
+     {% if i.__class__.__name__ == "Specialist" %}
+          <td>{{ i.username }}<br></td>
+          <td>{{ i.id }}<br></td>
+          <td>{{ i.rate }}<br></td>
+          <td>{{ i.phonenumber}}<br></td>
+          <form method="post">
+               <input hidden name="providername" value="{{ i.username }}">
+               <input hidden name="action" value="send">
+               <td><button>send</button></a></td>
+          </form>
+     {% elif i.__class__.__name__ == "Centre" %}
+          <td>{{ i.name }}<br></td>
+          <td>{{ i.id }}<br></td>
+          <td>{{ i.type }}<br></td>
+          <td>{{ i.abn }}<br></td>
+          <td>{{ i.phone }}<br></td>
+          <td>{{ i.suburb }}<br></td>
+          <td>{{ i.rate }}<br></td>
+          <td><a   href ="{{url_for('profile', name = i.name, type = "Centre")}}"><button>Details</button></a></td>
+     {% endif %}
+        </tr>
+{% endfor %}
+
+</table>
+{% endif %}
+
+</div>
+
+<div class="row">
+  <div class="col-sm-2"></div>
+
+  <div class="col-sm-7">
+
+    {% if make == True %}
+        <div class="alert-green">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            <strong>Done!</strong> <h1 class="text-white">Sending to specialist success!<br></h1>
+          </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

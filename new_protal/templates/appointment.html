@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% block body %}
+<div class="profile_style">
+ <br><br>
+ <h1> {{ appointment_list|length }}</h1><br>
+     </div>
+     <div class="body_style">
+ {% if appointment_list|length != 0 %}
+ <table id="customers">
+   <col width="40">
+   <col width="80">
+   <col width="80">
+   <col width="80">
+   <col width="80">
+   <col width="80">
+
+ {% for i in appointment_list %}
+ <tr>
+     {% if loop.first %}
+          <th>date<br></th>
+          <th>time<br></th>
+          <th>place<br></th>
+          <th>doctor<br></th>
+          <th>patient<br></th>
+          {% if current_user.__class__.__name__ == "Provider" %}
+            <th>descriptions<br></th>
+            <th>consultation<br></th>
+            <th>close</th>>
+            <th>specialist referal</th>
+          {% endif %}
+     {% endif %}
+ </tr>
+
+ {% endfor %}
+ {% for i in appointment_list %}
+     <tr>
+          <td>{{ i.date }}<br></td>
+          <td>{{ i.time }}<br></td>
+          {% if current_user.__class__.__name__ == "Patient" %}
+               {% if i.centre != "individual" %}
+                    <td><a   href ="{{url_for('profile', name = i.centre, type = "Centre")}}"><button>{{i.centre}}</button></a></td>
+               {% else %}
+                    <td>individual clinic</td>
+               {% endif %}
+               <td><a   href ="{{url_for('profile', name = i.provider.username, type = i.provider.__class__.__name__)}}"><button>{{i.provider.username}}</button></a></td>
+          {% else %}
+               <td>{{ i.centre}}<br></td>
+               <td>{{ i.provider.username }}<br></td>
+          {% endif %}
+
+          {% if current_user.__class__.__name__ == "Patient" %}
+               <td>{{ i.patient.username }}<br></td>
+          {% else %}
+               <td><a   href ="{{url_for('profile', name = i.patient.username, type = "Patient")}}"><button>{{i.patient.username}}</button></a></td>
+          {% endif %}
+
+
+          
+
+          {% if current_user.__class__.__name__ == "Provider" or   i.__class__.__name__ == "Specialist"  %}
+              <td>{{ i.booking_desc }}<br></td>
+
+              <input hidden name="date" value="{{ i.date }}">
+              <input hidden name="patientname" value="{{ i.patient.username }}">
+              <input hidden name="action" value="discuss">
+              <td><a   href ="{{url_for('consultation',username = i.patient.username, date = i.date, time = i.time)}}"><button>Consult</button></a></td>
+
+            
+
+               <form method="post">
+                    <input hidden name="date" value="{{ i.date }}">
+                    <input hidden name="time" value="{{ i.time }}">
+                    <input hidden name="patientname" value="{{ i.patient.username }}">
+                    <input hidden name="action" value="close">
+                    <td><button>Close</button></a></td>
+               </form>
+
+               
+
+          {% endif %}
+
+          {% if current_user.__class__.__name__ == "Provider" %}
+               <td><a   href ="{{url_for('referral', name = i.patient.username)}}"><button>send</button></a></td>
+          {% endif %}
+      </tr>
+
+ {% endfor %}
+
+ </table>
+ {% endif %}
+ </div>
+{% endblock %}

@@ -1,0 +1,35 @@
+
+{% extends 'base.html' %}
+{% block body %}
+<div class="profile_style">
+ <h1> Edit history: </h1>
+
+<table id="customers">
+  <col width="60">
+  <col width="80">
+  <col width="80">
+  <col width="80">
+  <col width="80">
+  <col width="80">
+</div>
+
+
+<form method="POST">
+
+<div class="row">
+    <div class="col-sm-4.5">
+
+    </div>
+
+    <div class="col-sm-6">
+      <div class="form-group">
+      <textarea class="form-control" name="description" cols="30" rows="10" >我是默认值html{{ history }}</textarea>
+      </div>
+    </div>
+</div>
+
+
+</form>
+
+
+{% endblock %}

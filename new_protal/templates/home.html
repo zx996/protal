@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% block body %}
+    <style>
+img { class:centre; display:block; margin-left:auto; margin-right:auto;width:100%;}
+
+
+.Home {
+	background-image: url('https://66.media.tumblr.com/b769bc88e34f4c2633fbabb97dbc88bd/tumblr_pgghhk1ffF1xg0c2uo1_1280.png');
+	 overflow: hidden;
+	 background-repeat:no-repeat;
+	 background-color: #3f85f4;
+    
+}
+
+.item-1, 
+.item-2, 
+.item-3 {
+	position: absolute;
+  display: block;
+	top: 6em;
+  
+  width: 60%;
+  
+  font-size: 2em;
+  color: white;
+  text-shadow: 0 0 6px #870a0a;
+	animation-duration: 25s;
+	animation-timing-function: ease-in-out;
+	animation-iteration-count: infinite;
+	
+}
+
+.item-1{
+	animation-name: anim-1;
+}
+
+.item-2{
+	animation-name: anim-2;
+}
+
+.item-3{
+	animation-name: anim-3;
+}
+
+@keyframes anim-1 {
+	0%, 8.3% { left: -100%; opacity: 0; }
+  8.3%,25% { left: 25%; opacity: 1; }
+  33.33%, 100% { left: 110%; opacity: 0; }
+}
+
+@keyframes anim-2 {
+	0%, 33.33% { left: -100%; opacity: 0; }
+  41.63%, 58.29% { left: 25%; opacity: 1; }
+  66.66%, 100% { left: 110%; opacity: 0; }
+}
+
+@keyframes anim-3 {
+	0%, 66.66% { left: -100%; opacity: 0; }
+  74.96%, 91.62% { left: 25%; opacity: 1; }
+  100% { left: 110%; opacity: 0; }
+}
+
+</style>
+	<body  class="Home">
+    <p class="item-1">Award winning search engine!</p>
+
+<p class="item-2">Don't hesitate to contact us if you have any questions!</p>
+
+<p class="item-3">We are working day and night to help you find the service that suits you best!</p>
+    <p>
+   <!--<img src= "https://66.media.tumblr.com/e5989faab81b8ab4619e8794de3a6f8a/tumblr_pgfqakwp0K1xg0c2uo1_1280.jpg">-->
+   
+    <div class="search_style">
+    {% if current_user.admin %}
+    	
+        <h1style ="color:white;position:fixed; bottom:30%; left:80%;text-shadow: 0 0 6px black;"> Welcome, provider </h1>
+        {% else %}
+        
+   
+   
+   
+    <h1 style ="color:white;position:fixed; bottom:30%; left:80%;text-shadow: 0 0 6px black;"> Your Online hospital.</h1>
+    {% endif %}
+    <br><br>
+
+
+
+    
+
+
+    </div>
+    </p>
+    </body>
+{% endblock %}

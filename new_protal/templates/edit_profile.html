@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% block body %}
+<div class="body_style">
+<table id="customers">
+<col width="40">
+<col width="80">
+<col width="80">
+<col width="80">
+<col width="80">
+<col width="80">
+
+<form method="POST">
+    {% if tempone.__class__.__name__ == "Provider" %}
+        <tr>
+            <th> name <br></th>
+            <td><textarea name='fullname'>{{tempone.fullname}}</textarea></td>
+        </tr>
+        <tr>
+            <th> phone number <br></th>
+            <td><textarea name='phonenumber'>{{tempone.phone_number}}</textarea></td>
+        </tr>
+        <tr>
+            <th> username <br></th>
+            <td>{{tempone.username}}</td>
+        </tr>
+        <tr>
+            <th> id <br></th>
+            <td>{{ tempone.id }}<br></td>
+        </tr>
+        <tr>
+            <th> rate <br></th>
+            <td>{{ tempone.rate }}<br></td>
+        </tr>
+
+    {% elif tempone.__class__.__name__ == "Patient" %}
+        <tr>
+            <th>name<br></th>
+            <td><textarea name='fullname'>{{tempone.fullname}}</textarea></td>
+        </tr>
+        <tr>
+            <th>phone number<br></th>
+            <td><textarea name='phonenumber'>{{tempone.phone_number}}</textarea></td>
+        </tr>
+        <tr>
+            <th> username <br></th>
+            <td>{{tempone.username}}</td>
+        </tr>
+        <tr>
+            <th> id <br></th>
+            <td>{{ tempone.id }}<br></td>
+        </tr>
+
+    {% endif %}
+
+
+</table>
+
+    <a href ="{{('booking')}}"><button>Save information</button></a>
+
+</form>
+
+{% endblock %}
+
